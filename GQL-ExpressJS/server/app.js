@@ -1,27 +1,31 @@
-const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
-const schema = require('./schema/schema');
-const mongoose = require('mongoose');
-const cors = require('cors'); 
+const express = require("express");
+const { graphqlHTTP } = require("express-graphql");
+const schema = require("./schema/schema");
+const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
-
 
 // Allow cross origin request
 app.use(cors());
 
 // MongoDB
-mongoose.connect('mongodb+srv://kweks007:kweks007@cluster0.j7jdmhg.mongodb.net');
-mongoose.connection.once('open', () => {
-    console.log('connected to database');
-})
+mongoose.connect(
+  "mongodb+srv://kweks007:kweks007@cluster0.j7jdmhg.mongodb.net"
+);
+mongoose.connection.once("open", () => {
+  console.log("connected to database");
+});
 
 // GraphQL
-app.use('/graphql', graphqlHTTP({
+app.use(
+  "/graphql",
+  graphqlHTTP({
     schema,
-    graphiql: true
-}));
+    graphiql: true,
+  })
+);
 
 // Localhost
 app.listen(4000, () => {
-    console.log('now listening for request on port 4000')
-})
+  console.log("now listening for request on port 4000");
+});
